@@ -45,7 +45,6 @@ class OSFEWorld(World):
             raise OptionError("Starter heroes exceeds total heroes")
         self.characters = self.random.sample(char_pool, self.options.total_heroes.value)
         self.start_characters = self.random.sample(self.characters, self.options.start_heroes.value)
-        print(f"Selected characters {self.characters}; starting {self.start_characters}")
 
     def _randomize_kits(self) -> None:
         if self.options.randomize_starting_spells:

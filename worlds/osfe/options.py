@@ -18,28 +18,28 @@ from .data.beings import HeroKit
 class IncludedHeroKits(OptionSet):
     """
     Which HeroKits to shuffle into the pool as unlockable. Valid kits are:
-      "Saffron"
+      "Saffron - Default"
       "Saffron - Chrono"
       "Saffron - Solo"
-      "Reva"
+      "Reva - Shield"
       "Reva - Beat"
-      "Gunner"
+      "Gunner - Manafire"
       "Gunner - Bullethell"
-      "Selicy"
+      "Selicy - Snow"
       "Selicy - Invade"
-      "Hazel"
+      "Hazel - Build"
       "Hazel - Teardown"
-      "Terra"
+      "Terra - Break"
       "Terra - Pyro"
-      "Shiso"
+      "Shiso - Execute"
       "Shiso - Kunai"
-      "Violette"
+      "Violette - Doubletime"
       "Violette - Aria"
-      "Shopkeeper"
+      "Shopkeeper - Money"
     """
     display_name = "Herokits"
     valid_keys = [char.value.name for char in HeroKit]
-    default = ["Saffron", "Reva", "Gunner", "Selicy", "Hazel", "Terra", "Shiso", "Violette"]
+    default = ["Saffron - Default", "Reva - Shield", "Gunner - Manafire", "Selicy - Snow", "Hazel - Build", "Terra - Break", "Shiso - Execute", "Violette - Doubletime"]
 
 class TotalHeroes(Range):
     """

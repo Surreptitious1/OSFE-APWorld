@@ -86,7 +86,7 @@ class Spell(Enum):
     Gambit = SpellData("Gambit", False) # That would be cruel
     Unleash = SpellData("Unleash", True)
     Sustain = SpellData("Sustain", False)
-    TimeStop = SpellData("TimeStop", False)
+    TimeStop = SpellData("Time Stop", False)
     Preload = SpellData("Preload", True)
     Trisect = SpellData("Trisect", True)
     ChronoSphere = SpellData("Chrono Sphere", True)
@@ -118,7 +118,7 @@ class Spell(Enum):
 
     # Hearth
     SwordRow = SpellData("Sword Row", True)
-    EarthenArmor = SpellData("Earth Armor", False)
+    EarthenArmor = SpellData("Earthen Armor", False)
     RockCycle = SpellData("Rock Cycle", True)
     IonCannon = SpellData("Ion Cannon", True)
     TileFire = SpellData("Tile Fire", True)
@@ -725,6 +725,7 @@ class SpellPack(Enum):
     Kunai = [
         Spell.CounterStrike,
         Spell.Doubletake,
+        Spell.Kunai,
         Spell.Scavenge,
         Spell.ShadowShift,
         Spell.Swipe,
