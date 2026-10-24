@@ -37,7 +37,8 @@ def _propagate_item_table() -> tuple[dict[str, int], dict[str, ItemData]]:
         _append_item(f"Brand Unlock: {brand.name}", ItemClassification.progression)
     for pack in SpellPack:
         _append_item(f"Spell Booster Pack: {pack.name}", ItemClassification.progression)
-    _append_item("Hell Pass Down", ItemClassification.progression)
+    for i in range(1, 15):
+        _append_item(f"Hell Pass {i} Relief", ItemClassification.progression)
     for artifact in Artifact:
         _append_item(f"Artifact Unlock: {artifact.name}", ItemClassification.useful)
     _append_item("Filler", ItemClassification.filler) # TODO: better filler
@@ -78,8 +79,8 @@ def create_all_items(world: "OSFEWorld") -> None:
             pass
         case world.options.hellpass_mode.option_Vanilla | world.options.hellpass_mode.option_Modded:
             # Until custom hell passes are implemented, fall back to vanilla
-            if world.options.hellpass_down.value == world.options.hellpass_down.option_true:
-                items += [world.create_item(f"Hell Pass Down") for _ in range(world.options.vanilla_hellpass_level.value)]
+            if world.options.hellpass_relief.value == world.options.hellpass_relief.option_true:
+                items += [world.create_item(f"Hell Pass {i} Relief") for i in world.options.vanilla_hellpasses_enabled.value]
 
     item_slots = len(world.multiworld.get_unfilled_locations(world.player))
     if len(items) > item_slots:

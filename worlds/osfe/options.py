@@ -115,23 +115,22 @@ class HellPassMode(Choice):
     option_Vanilla = 1
     option_Modded = 2
 
-class VanillaHellPassLevel(Range):
+class EnabledHellPasses(OptionSet):
     """
-    Select which level of vanilla hell pass to enable at the start of a run (all lower passes will also be enabled). Has
-    no effect if HellPassMode is not set to Vanilla
+    Select which vanilla hell pass levels to enable at the start of a run. Has no effect if HellPassMode is not set to
+    Vanilla. Be advised that enabling hell pass 14 may make your run extremely difficult.
     https://onestepfromeden.fandom.com/wiki/Hell_Pass
     """
-    display_name = "Vanilla Hell Pass Level"
-    range_start = 0
-    range_end = 14
-    default = 1
+    display_name = "Enabled Vanilla Hell Pass Levels"
+    valid_keys = [f"{i}" for i in range(1, 15)]
+    default = ["1"]
 
-class HellPassDown(DefaultOnToggle):
+class HellPassRelief(DefaultOnToggle):
     """
-    Choose whether items should be shuffled into the multiworld which reduce the hell pass level when found. If this
-    option is disabled, be prepared for a difficult run at high hell pass levels
+    Choose whether items should be shuffled into the multiworld which each toggle off a specific hell pass level when
+    found. If this option is disabled, be prepared for a difficult run at high hell pass levels
     """
-    display_name = "Hell Pass Down"
+    display_name = "Hell Pass Relief"
 
 class RequiredCumulativeWins(Range):
     """
@@ -200,8 +199,8 @@ class OSFEOptions(PerGameCommonOptions):
     spell_unlock_method: SpellUnlockMethod
     # TODO: artifact unlock method
     hellpass_mode: HellPassMode
-    vanilla_hellpass_level: VanillaHellPassLevel
-    hellpass_down: HellPassDown
+    vanilla_hellpasses_enabled: EnabledHellPasses
+    hellpass_relief: HellPassRelief
     total_wins: RequiredCumulativeWins
     pacifist_wins: RequiredPacifistWins
     neutral_wins: RequiredNeutralWins

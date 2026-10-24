@@ -24,14 +24,15 @@ def _set_character_rules(world: "OSFEWorld"):
 
         # As a very coarse heuristic, assert at least one hell pass down must be acquired per boss,
         # starting at world 3 to keep sphere 0 a reasonable size
-        if (world.options.hellpass_down and
+        if (world.options.hellpass_relief and
             world.options.hellpass_mode.value != world.options.hellpass_mode.option_Disabled):
             worlds = WORLDS_PER_RUN if kit.value.name != "Shopkeeper" else WORLDS_PER_RUN + 1
+            hellpass_down_items = [f"Hell Pass {i} Relief" for i in range(1, 15)]
             for world_no in range(3, worlds + 1):
                 pass_down_count = world_no - 2
-                if world.options.vanilla_hellpass_level.value >= pass_down_count:
+                if len(world.options.vanilla_hellpasses_enabled.value) >= pass_down_count:
                     boss_win = world.get_entrance(f"[{kit.value.name}] World {world_no} Zones to [{kit.value.name}] World {world_no} Boss")
-                    world.set_rule(boss_win, HasFromList("Hell Pass Down", count=pass_down_count))
+                    world.set_rule(boss_win, HasFromList(*hellpass_down_items, count=pass_down_count))
 
 def _set_completion_rule(world: "OSFEWorld"):
     specific_win_counts: dict[str, int] = {}

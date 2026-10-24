@@ -92,7 +92,7 @@ class OSFEWorld(World):
 
     def fill_slot_data(self) -> dict[str, Any]:
         data = self.options.as_dict(
-            "hellpass_mode", "vanilla_hellpass_level", "total_wins",
+            "hellpass_mode", "vanilla_hellpasses_enabled", "total_wins",
             "pacifist_wins", "neutral_wins", "genocide_wins"
         )
         data['characters'] = []
