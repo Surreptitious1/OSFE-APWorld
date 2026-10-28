@@ -3,8 +3,9 @@ from typing import TYPE_CHECKING
 
 from BaseClasses import Item, ItemClassification
 from Options import OptionError
+from .data.consts import ALL_RARITIES
 from .data.artifacts import Artifact
-from .data.spells import Spell, SpellBrand, SpellPack
+from .data.spells import Spell, SpellBrand
 from . import HeroKit
 
 if TYPE_CHECKING:
@@ -35,8 +36,8 @@ def _propagate_item_table() -> tuple[dict[str, int], dict[str, ItemData]]:
         _append_item(f"Spell Card: {spell.value.name}", ItemClassification.progression)
     for brand in SpellBrand:
         _append_item(f"Brand Unlock: {brand.name}", ItemClassification.progression)
-    for pack in SpellPack:
-        _append_item(f"Spell Booster Pack: {pack.name}", ItemClassification.progression)
+        for rarity in ALL_RARITIES:
+            _append_item(f"Brand Rarity Unlock: {rarity} {brand.name}", ItemClassification.progression)
     for i in range(1, 15):
         _append_item(f"Hell Pass {i} Relief", ItemClassification.progression)
     for artifact in Artifact:
@@ -61,9 +62,11 @@ def create_all_items(world: "OSFEWorld") -> None:
         case world.options.spell_unlock_method.option_Brand:
             for brand in SpellBrand:
                 items.append(world.create_item(f"Brand Unlock: {brand.name}"))
-        case world.options.spell_unlock_method.option_Pack:
-            for pack in SpellPack:
-                items.append(world.create_item(f"Spell Booster Pack: {pack.name}"))
+        case world.options.spell_unlock_method.option_Brand_Rarity:
+            for brand in SpellBrand:
+                for rarity in ALL_RARITIES:
+                    items.append(world.create_item(f"Brand Rarity Unlock: {rarity} {brand.name}"))
+
 
     if world.options.unlock_starter_kit.value == world.options.unlock_starter_kit.option_true:
         precollect_spells: list[str] = []

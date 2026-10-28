@@ -2,8 +2,8 @@
 
 from .options import SpellUnlockMethod
 from .data.beings import HeroKit
-from .data.consts import WORLDS_PER_RUN
-from .data.spells import SpellBrand, SpellPack, Spell
+from .data.consts import ALL_RARITIES, WORLDS_PER_RUN
+from .data.spells import SpellBrand, Spell
 from rule_builder.rules import Rule, True_, Has, HasAny, HasAllCounts, HasFromList, False_
 
 if TYPE_CHECKING:
@@ -64,16 +64,18 @@ def _hero_can_kill(kit: HeroKit, spell_mode: SpellUnlockMethod) -> Rule:
             damage_brands = []
             for damage_spell in damage_spells:
                 for brand in SpellBrand:
-                    if damage_spell in brand.value:
-                        damage_brands.append(brand)
+                    for rarity in ALL_RARITIES:
+                        if damage_spell in brand.value[rarity]:
+                            damage_brands.append(brand)
             brand_unlocks = [f"Brand Unlock: {brand.name}" for brand in damage_brands]
             return HasAny(*brand_unlocks) | HasAny(*card_unlocks)
-        case SpellUnlockMethod.option_Pack:
-            damage_packs = []
+        case SpellUnlockMethod.option_Brand_Rarity:
+            damage_brand_rarities = []
             for damage_spell in damage_spells:
-                for pack in SpellPack:
-                    if damage_spell in pack.value:
-                        damage_packs.append(pack)
-            pack_unlocks = [f"Spell Booster Pack: {pack.name}" for pack in damage_packs]
+                for brand in SpellBrand:
+                    for rarity in ALL_RARITIES:
+                        if damage_spell in brand.value[rarity]:
+                            damage_brand_rarities.append((rarity, brand.name))
+            pack_unlocks = [f"Brand Rarity Unlock: {rarity} {brand}" for (rarity, brand) in damage_brand_rarities]
             return HasAny(*pack_unlocks) | HasAny(*card_unlocks)
     return False_()

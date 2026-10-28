@@ -86,14 +86,14 @@ class RandomizeStartingSpells(Choice):
 
 class SpellUnlockMethod(Choice):
     """
-    Choose if spell cards should be unlocked individually (254 items), by brand (10 items), or in thematic packs (32 items)
+    Choose if spell cards should be unlocked individually (254 items), by brand and rarity (50 items), or by brand (10 items)
     Note that there are 254 spell cards, so the individual unlock method requires multiple additional heroes for enough
     locations to exist.
     """
     display_name = "Spell Unlock Method"
     option_Individual = 0
     option_Brand = 1
-    option_Pack = 2
+    option_Brand_Rarity = 2
     default = 2
 
 # TODO: themed artifact packs

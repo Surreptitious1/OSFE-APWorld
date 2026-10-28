@@ -3,8 +3,8 @@ from enum import Enum
 
 class Artifact(Enum):
     # Base
-    ManaGem = "ManaGem"
-    ManaVein = "ManaVein"
+    ManaGem = "Mana Gem"
+    ManaVein = "Mana Vein"
     Medkit = "Medkit"
 
     # Common
