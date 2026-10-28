@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from BaseClasses import Item, ItemClassification
 from Options import OptionError
 from .data.consts import ALL_RARITIES
-from .data.artifacts import Artifact
+from .data.artifacts import Artifact, ArtifactRarities
 from .data.spells import Spell, SpellBrand
 from . import HeroKit
 
@@ -41,7 +41,9 @@ def _propagate_item_table() -> tuple[dict[str, int], dict[str, ItemData]]:
     for i in range(1, 15):
         _append_item(f"Hell Pass {i} Relief", ItemClassification.progression)
     for artifact in Artifact:
-        _append_item(f"Artifact Unlock: {artifact.name}", ItemClassification.useful)
+        _append_item(f"Artifact Unlock: {artifact.value.name}", ItemClassification.useful)
+    for art_rarity in ArtifactRarities:
+        _append_item(f"Artifact Rarity Unlock: {art_rarity.name}", ItemClassification.progression if art_rarity.name == "Basic" else ItemClassification.useful)
     _append_item("Filler", ItemClassification.filler) # TODO: better filler
 
     return _item_str_to_id, _item_str_to_data
@@ -67,6 +69,26 @@ def create_all_items(world: "OSFEWorld") -> None:
                 for rarity in ALL_RARITIES:
                     items.append(world.create_item(f"Brand Rarity Unlock: {rarity} {brand.name}"))
 
+    match world.options.artifact_unlock_method:
+        case world.options.artifact_unlock_method.option_Individual:
+            for artifact in Artifact:
+                items.append(world.create_item(f"Artifact Unlock: {artifact.value.name}"))
+        case world.options.artifact_unlock_method.option_Rarity:
+            for art_rarity in ArtifactRarities:
+                items.append(world.create_item(f"Artifact Rarity Unlock: {art_rarity.name}"))
+
+    if world.options.starter_basic_artifacts == world.options.starter_basic_artifacts.option_true:
+        precollect_arts: list[str] = []
+        match world.options.artifact_unlock_method:
+            case world.options.artifact_unlock_method.option_Individual:
+                precollect_arts.append(f"Artifact Unlock: {Artifact.ManaGem.value.name}")
+                precollect_arts.append(f"Artifact Unlock: {Artifact.ManaVein.value.name}")
+                precollect_arts.append(f"Artifact Unlock: {Artifact.Medkit.value.name}")
+            case world.options.artifact_unlock_method.option_Rarity:
+                precollect_arts.append(f"Artifact Rarity Unlock: {ArtifactRarities.Base.name}")
+        for art in precollect_arts:
+            world.push_precollected(world.create_item(art))
+        items = list(filter(lambda i: i.name not in precollect_arts, items))
 
     if world.options.unlock_starter_kit.value == world.options.unlock_starter_kit.option_true:
         precollect_spells: list[str] = []

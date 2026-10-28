@@ -96,11 +96,19 @@ class SpellUnlockMethod(Choice):
     option_Brand_Rarity = 2
     default = 2
 
-# TODO: themed artifact packs
-#class ArtifactUnlockMethod(Choice):
-#    """
-#    Choose if artifacts should be unlocked individually or by thematic packs
-#    """
+class ArtifactUnlockMethod(Choice):
+    """
+    Choose if artifacts should be unlocked individually (186 items) or by rarity (5 items)
+    """
+    display_name = "Artifact Unlock Method"
+    option_Individual = 0
+    option_Rarity = 1
+
+class StartWithBasicArtifacts(DefaultOnToggle):
+    """
+    Begin with the artifacts Mana Gem, Mana Vein, and Medkit unlocked
+    """
+    display_name = "Starter Basic Artifacts"
 
 class HellPassMode(Choice):
     """
@@ -197,7 +205,8 @@ class OSFEOptions(PerGameCommonOptions):
     unlock_starter_kit: FullyUnlockStarterKit
     randomize_starting_spells: RandomizeStartingSpells
     spell_unlock_method: SpellUnlockMethod
-    # TODO: artifact unlock method
+    artifact_unlock_method: ArtifactUnlockMethod
+    starter_basic_artifacts: StartWithBasicArtifacts
     hellpass_mode: HellPassMode
     vanilla_hellpasses_enabled: EnabledHellPasses
     hellpass_relief: HellPassRelief
