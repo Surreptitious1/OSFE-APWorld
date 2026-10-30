@@ -61,13 +61,11 @@ class OSFEWorld(World):
         if (opt.pacifist_wins.value == 0 and
             opt.genocide_wins.value == 0 and
             opt.neutral_wins.value == 0 and
-            opt.total_wins.value == 0):
+            opt.character_wins.value == 0):
             raise OptionError("No win condition specified")
 
-        if opt.total_wins.value > 2 * opt.total_heroes and opt.genocide_wins.value == 0:
-            raise OptionError(f"Required cumulative wins ({opt.total_wins.value}) exceeds possible pacifist and neutral wins ({opt.total_heroes * 2})")
-        if opt.total_wins.value > 3 * opt.total_heroes and opt.genocide_wins.value == 1:
-            raise OptionError(f"Required cumulative wins ({opt.total_wins.value}) exceeds possible unique wins ({opt.total_heroes * 3})")
+        if opt.character_wins.value > opt.total_heroes:
+            raise OptionError(f"Required character wins ({opt.character_wins.value}) exceeds character count ({opt.total_heroes})")
         if opt.pacifist_wins.value > opt.total_heroes:
             raise OptionError(f"Required pacifist wins ({opt.pacifist_wins.value}) exceeds character count ({opt.total_heroes})")
         if opt.neutral_wins.value > opt.total_heroes:
@@ -92,7 +90,7 @@ class OSFEWorld(World):
 
     def fill_slot_data(self) -> dict[str, Any]:
         data = self.options.as_dict(
-            "hellpass_mode", "vanilla_hellpasses_enabled", "total_wins",
+            "hellpass_mode", "vanilla_hellpasses_enabled", "character_wins",
             "pacifist_wins", "neutral_wins", "genocide_wins"
         )
         data['characters'] = []

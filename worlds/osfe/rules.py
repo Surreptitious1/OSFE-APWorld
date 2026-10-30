@@ -38,15 +38,12 @@ def _set_completion_rule(world: "OSFEWorld"):
     specific_win_counts: dict[str, int] = {}
     if world.options.pacifist_wins.value > 0:
         specific_win_counts["Pacifist Victory"] = world.options.pacifist_wins.value
-    if world.options.neutral_wins.value > 0:
-        specific_win_counts["Neutral Victory"] = world.options.neutral_wins.value
+    if world.options.neutral_wins.value > 0 or world.options.character_wins > 0:
+        # Use Neutral Victory as the default for character wins
+        specific_win_counts["Neutral Victory"] = max(world.options.neutral_wins.value, world.options.character_wins.value)
     if world.options.genocide_wins.value > 0:
         specific_win_counts["Genocide Victory"] = world.options.genocide_wins.value
-    cond = (HasAllCounts(specific_win_counts) &
-            HasFromList(
-                *("Pacifist Victory", "Neutral Victory", "Genocide Victory"),
-                count=world.options.total_wins.value
-            ))
+    cond = (HasAllCounts(specific_win_counts))
 
     world.set_completion_rule(cond)
 

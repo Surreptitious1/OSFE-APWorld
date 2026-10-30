@@ -140,17 +140,14 @@ class HellPassRelief(DefaultOnToggle):
     """
     display_name = "Hell Pass Relief"
 
-class RequiredCumulativeWins(Range):
+class RequiredCharacterWins(Range):
     """
-    Number of character wins of any ending required to goal. Each character can contribute up to 3 wins towards this
-    total (one for each route). Has no effect if the required pacifist, neutral, or genocide wins are greater than this
-    number.
-
-    If RequiredGenocideWins is set to zero, logic will never require genocide victories to reach this total.
+    Number of character wins of any ending required to goal. Each character can only contribute a single win to this
+    total, regardless of how many endings they achieve.
     """
     range_start = 0
-    range_end = 3 * len(HeroKit)
-    default = 1
+    range_end = len(HeroKit)
+    default = 3
 
 class RequiredPacifistWins(Range):
     """
@@ -160,7 +157,7 @@ class RequiredPacifistWins(Range):
     """
     range_start = 0
     range_end = len(HeroKit)
-    default = 0
+    default = 1
 
 class RequiredNeutralWins(Range):
     """
@@ -170,7 +167,7 @@ class RequiredNeutralWins(Range):
     """
     range_start = 0
     range_end = len(HeroKit)
-    default = 0
+    default = 1
 
 class RequiredGenocideWins(Range):
     """
@@ -210,7 +207,7 @@ class OSFEOptions(PerGameCommonOptions):
     hellpass_mode: HellPassMode
     vanilla_hellpasses_enabled: EnabledHellPasses
     hellpass_relief: HellPassRelief
-    total_wins: RequiredCumulativeWins
+    character_wins: RequiredCharacterWins
     pacifist_wins: RequiredPacifistWins
     neutral_wins: RequiredNeutralWins
     genocide_wins: RequiredGenocideWins

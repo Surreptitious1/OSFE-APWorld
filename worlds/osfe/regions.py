@@ -68,7 +68,7 @@ def create_regions_and_locations(world: "OSFEWorld"):
             eden.connect(serif, f"{eden.name} to {serif.name}")
             shopkeep_kill.connect(serif, f"{serif.name} to {shopkeep_kill.name}")
         # Pacifist and Neutral victories are always in logic, genocide is only expected if enabled in options
-        if world.options.total_wins.value > 0 and world.options.pacifist_wins.value == 0:
+        if world.options.character_wins.value > 0 and world.options.pacifist_wins.value == 0:
             prev.add_event(f"[{kit.value.name}] Pacifist Victory", "Pacifist Victory", location_type=OSFELocation, item_type=OSFEItem)
-        if world.options.total_wins.value > 0 and world.options.neutral_wins.value == 0:
+        if world.options.character_wins.value > 0 and world.options.neutral_wins.value == 0:
             prev.add_event(f"[{kit.value.name}] Neutral Victory", "Neutral Victory", location_type=OSFELocation, item_type=OSFEItem)
