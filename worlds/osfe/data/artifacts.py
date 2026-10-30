@@ -82,8 +82,8 @@ class Artifact(Enum):
     CandyWrapper = ArtifactData("Candy Wrapper", False)
     CardThrower = ArtifactData("Card Thrower", False)
     CassidyScarf = ArtifactData("Cassidy's Scarf", False)
-    GlassFlute = ArtifactData("Glass Flute", False)
-    ChaosFragment = ArtifactData("Chaos Fragment", False)
+    Champagne = ArtifactData("Glass Flute", False)
+    ChaosFrag = ArtifactData("Chaos Fragment", False)
     CobraCare = ArtifactData("Cobra Care", False)
     ColdBlooded = ArtifactData("Cold Blooded", False)
     CreditCard = ArtifactData("Credit Card", False)
@@ -94,11 +94,11 @@ class Artifact(Enum):
     Gelatin = ArtifactData("Gelatin", False)
     GoldenCat = ArtifactData("Golden Cat", False)
     Granite = ArtifactData("Granite", False)
-    M1Liofire = ArtifactData("M1 Liofire", False)
-    M2HunterSeeker = ArtifactData("M2 Hunter Seeker", False)
+    GunnerFrontAll = ArtifactData("M1 Liofire", False)
+    GunnerHoming = ArtifactData("M2 Hunter Seeker", False)
     HardenedShields = ArtifactData("Hardened Shields", False)
     HoningSteel = ArtifactData("Honing Steel", False)
-    KineticShields = ArtifactData("Kinetic Shields", False)
+    KineticShield = ArtifactData("Kinetic Shields", False)
     LaserPointer = ArtifactData("Laser Pointer", False)
     LuckBox = ArtifactData("Luck Box", False)
     MagnifyingGlass = ArtifactData("Magnifying Glass", False)
@@ -150,7 +150,7 @@ class Artifact(Enum):
     MoltenCore = ArtifactData("Molten Core", False)
     PetFox = ArtifactData("Pet Fox", False)
     PetPuppy = ArtifactData("Pet Puppy", False)
-    SoulGun = ArtifactData("Soul Gun", False) # internally PetSoulGun
+    PetSoulGun = ArtifactData("Soul Gun", True)
     PetTurtle = ArtifactData("Pet Turtle", False)
     PocketSand = ArtifactData("Pocket Sand", False)
     PocketWatch = ArtifactData("Pocket Watch", False)
@@ -173,7 +173,7 @@ class Artifact(Enum):
     Virtue = ArtifactData("Virtue", False)
 
     # Legendary
-    BazWhip = ArtifactData("Baz's Whip", False)
+    BazsWhip = ArtifactData("Baz's Whip", False)
     Beret = ArtifactData("Beret", False)
     CoolShoes = ArtifactData("Cool Shoes", False)
     DartFrog = ArtifactData("Dart Frog", False)
@@ -193,14 +193,14 @@ class Artifact(Enum):
     PetKitty = ArtifactData("Pet Kitty", False)
     PetLiger = ArtifactData("Pet Liger", False)
     PhasePlates = ArtifactData("Phase Plates", False)
-    SecondSoul = ArtifactData("Second Soul", False)
+    SubTank = ArtifactData("Second Soul", False)
     Thorn = ArtifactData("Thorn", False)
     TightPants = ArtifactData("Tight Pants", False)
     Tinder = ArtifactData("Tinder", False)
     Transcendence = ArtifactData("Transcendence", False)
     TrapCard = ArtifactData("Trap Card", True) # Only slightly evil
     UnicornBomb = ArtifactData("Unicorn Bomb", False)
-    VGun = ArtifactData("VGun", False)
+    VGunMod = ArtifactData("VGun", False)
     Wings = ArtifactData("Wings", False)
 
 class ArtifactRarities(Enum):
@@ -279,8 +279,8 @@ class ArtifactRarities(Enum):
         Artifact.CandyWrapper,
         Artifact.CardThrower,
         Artifact.CassidyScarf,
-        Artifact.GlassFlute,
-        Artifact.ChaosFragment,
+        Artifact.Champagne,
+        Artifact.ChaosFrag,
         Artifact.CobraCare,
         Artifact.ColdBlooded,
         Artifact.CreditCard,
@@ -291,11 +291,11 @@ class ArtifactRarities(Enum):
         Artifact.Gelatin,
         Artifact.GoldenCat,
         Artifact.Granite,
-        Artifact.M1Liofire,
-        Artifact.M2HunterSeeker,
+        Artifact.GunnerFrontAll,
+        Artifact.GunnerHoming,
         Artifact.HardenedShields,
         Artifact.HoningSteel,
-        Artifact.KineticShields,
+        Artifact.KineticShield,
         Artifact.LaserPointer,
         Artifact.LuckBox,
         Artifact.MagnifyingGlass,
@@ -347,7 +347,7 @@ class ArtifactRarities(Enum):
         Artifact.MoltenCore,
         Artifact.PetFox,
         Artifact.PetPuppy,
-        Artifact.SoulGun,
+        Artifact.PetSoulGun,
         Artifact.PetTurtle,
         Artifact.PocketSand,
         Artifact.PocketWatch,
@@ -370,7 +370,7 @@ class ArtifactRarities(Enum):
         Artifact.Virtue,
     ]
     Legendary = [
-        Artifact.BazWhip,
+        Artifact.BazsWhip,
         Artifact.Beret,
         Artifact.CoolShoes,
         Artifact.DartFrog,
@@ -390,13 +390,13 @@ class ArtifactRarities(Enum):
         Artifact.PetKitty,
         Artifact.PetLiger,
         Artifact.PhasePlates,
-        Artifact.SecondSoul,
+        Artifact.SubTank,
         Artifact.Thorn,
         Artifact.TightPants,
         Artifact.Tinder,
         Artifact.Transcendence,
         Artifact.TrapCard,
         Artifact.UnicornBomb,
-        Artifact.VGun,
+        Artifact.VGunMod,
         Artifact.Wings,
     ]
