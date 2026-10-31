@@ -103,6 +103,14 @@ def create_all_items(world: "OSFEWorld") -> None:
                 world.push_precollected(world.create_item(item_str))
         items = list(filter(lambda i: i.name not in precollect_items, items))
 
+    # Always pre-unlock kunai
+    kunai = world.create_item(f"Spell Card: Kunai")
+    world.push_precollected(kunai)
+    try:
+        items.remove(kunai)
+    except ValueError:
+        pass
+
     match world.options.hellpass_mode.value:
         case world.options.hellpass_mode.option_Disabled:
             pass
