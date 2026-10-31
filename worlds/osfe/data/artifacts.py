@@ -71,6 +71,7 @@ class Artifact(Enum):
 
     # Rare
     Acupuncture = ArtifactData("Acupuncture", False)
+    Adamantium = ArtifactData("Adamantium", False)
     Adrenaline = ArtifactData("Adrenaline", False)
     Amethyst = ArtifactData("Amethyst", False)
     Bandage = ArtifactData("Bandage", False)
@@ -268,6 +269,7 @@ class ArtifactRarities(Enum):
     ]
     Rare = [
         Artifact.Acupuncture,
+        Artifact.Adamantium,
         Artifact.Adrenaline,
         Artifact.Amethyst,
         Artifact.Bandage,

@@ -3,6 +3,7 @@
 from BaseClasses import MultiWorld
 from Options import OptionError
 from worlds.AutoWorld import World
+from .data.artifacts import Artifact
 from .data.beings import HeroKit
 from .data.spells import Spell
 from . import items, locations, regions, rules # TODO: web_world
@@ -47,12 +48,19 @@ class OSFEWorld(World):
         self.start_characters = self.random.sample(self.characters, self.options.start_heroes.value)
 
     def _randomize_kits(self) -> None:
+        if self.options.randomize_starting_artifacts:
+            artifact_pool = [artifact for artifact in Artifact]
+            for char in self.characters:
+                new_arts: list[Artifact] = self.random.sample(artifact_pool, len(char.value.starting_artifacts)) # thanks, shiso
+                char.value.starting_artifacts = new_arts
         if self.options.randomize_starting_spells:
             spell_pool = [spell for spell in Spell]
             for char in self.characters:
                 new_spells: list[Spell] = self.random.sample(spell_pool, len(char.value.starting_spells))
-                # If the character's weapon can't kill, keep rerolling until we get at least one spell that can
-                while (not char.value.damaging_weapon) and (sum(spell.value.is_damaging for spell in new_spells) == 0):
+                # If the character's weapon/artifacts can't kill, keep rerolling until we get at least one spell that can
+                while ((not char.value.damaging_weapon) and
+                       (sum(art.value.is_damaging for art in char.value.starting_artifacts) == 0) and
+                       (sum(spell.value.is_damaging for spell in new_spells) == 0)):
                     new_spells: list[Spell] = self.random.sample(spell_pool, len(char.value.starting_spells))
                 char.value.starting_spells = new_spells
 
@@ -97,4 +105,5 @@ class OSFEWorld(World):
         for kit in self.characters:
             data['characters'].append(kit.value.name)
             data[f"{kit.value.name}_starting_spells"] = [spell.value.name for spell in kit.value.starting_spells]
+            data[f"{kit.value.name}_starting_artifacts"] = [art.value.name for art in kit.value.starting_artifacts]
         return data

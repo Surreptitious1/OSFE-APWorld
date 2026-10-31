@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Choice, Range, DefaultOnToggle, OptionSet, PerGameCommonOptions
+from Options import Choice, Range, DefaultOnToggle, Toggle,OptionSet, PerGameCommonOptions
 
 from .data.beings import HeroKit
 
@@ -84,6 +84,12 @@ class RandomizeStartingSpells(Choice):
     option_True = 2
     default = 0
 
+class RandomizeStartingArtifacts(Toggle):
+    """
+    Randomize all herokits(s)' starting artifacts.
+    """
+    display_name = "Randomize Starting Artifacts"
+
 class SpellUnlockMethod(Choice):
     """
     Choose if spell cards should be unlocked individually (254 items), by brand and rarity (50 items), or by brand (10 items)
@@ -114,14 +120,13 @@ class HellPassMode(Choice):
     """
     Determine which style of hell passes to use
     - Disabled: No hell passes will be used
-    - Vanilla: Base game hell passes are enabled, based on the "Vanilla Hell Pass Level" option
-    - Modded: Custom hell passes are enabled, which allow for more granular buffs/debuffs which vanilla hell passes do not support
-    === Modded currently not implemented, and will fallback to vanilla ===
+    - Vanilla: Base game hell passes are enabled, based on the "Enabled Vanilla Hell Pass Levels" option
     """
+    #- Modded: Custom hell passes are enabled, which allow for more granular buffs/debuffs which vanilla hell passes do not support
     display_name = "Hell Pass Mode"
     option_Disabled = 0
     option_Vanilla = 1
-    option_Modded = 2
+    #option_Modded = 2
 
 class EnabledHellPasses(OptionSet):
     """
@@ -201,6 +206,7 @@ class OSFEOptions(PerGameCommonOptions):
     start_heroes: StarterHeroes
     unlock_starter_kit: FullyUnlockStarterKit
     randomize_starting_spells: RandomizeStartingSpells
+    randomize_starting_artifacts: RandomizeStartingArtifacts
     spell_unlock_method: SpellUnlockMethod
     artifact_unlock_method: ArtifactUnlockMethod
     starter_basic_artifacts: StartWithBasicArtifacts

@@ -91,13 +91,17 @@ def create_all_items(world: "OSFEWorld") -> None:
         items = list(filter(lambda i: i.name not in precollect_arts, items))
 
     if world.options.unlock_starter_kit.value == world.options.unlock_starter_kit.option_true:
-        precollect_spells: list[str] = []
+        precollect_items: list[str] = []
         for kit in world.start_characters:
             for spell in kit.value.starting_spells:
                 item_str = f"Spell Card: {spell.value.name}"
-                precollect_spells.append(item_str)
+                precollect_items.append(item_str)
                 world.push_precollected(world.create_item(item_str))
-        items = list(filter(lambda i: i.name not in precollect_spells, items))
+            for art in kit.value.starting_artifacts:
+                item_str = f"Artifact Unlock: {art.value.name}"
+                precollect_items.append(item_str)
+                world.push_precollected(world.create_item(item_str))
+        items = list(filter(lambda i: i.name not in precollect_items, items))
 
     match world.options.hellpass_mode.value:
         case world.options.hellpass_mode.option_Disabled:
